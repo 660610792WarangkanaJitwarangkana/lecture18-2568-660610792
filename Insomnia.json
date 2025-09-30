@@ -1,0 +1,135 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-09-30T09:00:00.000Z",
+  "__export_source": "insomnia.desktop.app",
+  "resources": [
+    {
+      "_id": "wrk_123456",
+      "parentId": null,
+      "modified": 0,
+      "created": 0,
+      "name": "Lab16 Enrollments API",
+      "description": "Test endpoints for Lab 16 (JWT + RBAC + Enrollments)",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_123456",
+      "parentId": "wrk_123456",
+      "modified": 0,
+      "created": 0,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3000/api/v2"
+      },
+      "_type": "environment"
+    },
+
+    {
+      "_id": "req_login_admin",
+      "parentId": "wrk_123456",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ base_url }}/users/login",
+      "name": "Login (ADMIN)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"user4@abc.com\",\n  \"password\": \"5678\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "_type": "request"
+    },
+    {
+      "_id": "req_login_student",
+      "parentId": "wrk_123456",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ base_url }}/users/login",
+      "name": "Login (STUDENT)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"user2@abc.com\",\n  \"password\": \"1234\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "_type": "request"
+    },
+
+    {
+      "_id": "req_get_all_enrollments",
+      "parentId": "wrk_123456",
+      "url": "{{ base_url }}/enrollments",
+      "name": "GET All Enrollments (ADMIN only)",
+      "method": "GET",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ access_token }}" }
+      ],
+      "_type": "request"
+    },
+    {
+      "_id": "req_reset_enrollments",
+      "parentId": "wrk_123456",
+      "url": "{{ base_url }}/enrollments/reset",
+      "name": "Reset Enrollments (ADMIN only)",
+      "method": "POST",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ access_token }}" }
+      ],
+      "_type": "request"
+    },
+
+    {
+      "_id": "req_get_enrollments_student",
+      "parentId": "wrk_123456",
+      "url": "{{ base_url }}/enrollments/650610002",
+      "name": "GET Enrollments (STUDENT or ADMIN)",
+      "method": "GET",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ access_token }}" }
+      ],
+      "_type": "request"
+    },
+
+    {
+      "_id": "req_add_enrollment",
+      "parentId": "wrk_123456",
+      "url": "{{ base_url }}/enrollments/650610002",
+      "name": "Add Enrollment (STUDENT only)",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"courseId\": \"269101\"\n}"
+      },
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ access_token }}" },
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "_type": "request"
+    },
+
+    {
+      "_id": "req_delete_enrollment",
+      "parentId": "wrk_123456",
+      "url": "{{ base_url }}/enrollments/650610002",
+      "name": "Delete Enrollment (STUDENT only)",
+      "method": "DELETE",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"courseId\": \"269101\"\n}"
+      },
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ access_token }}" },
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "_type": "request"
+    }
+  ]
+}
